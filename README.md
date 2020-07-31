@@ -38,7 +38,7 @@
 
 ## 使用方式
 
-1.主调用应用启动类增加 `@EnableEvalTransactionManager` 注解，激活分布式事务服务
+1.启动类增加 `@EnableEvalTransactionManager` 注解，激活分布式事务服务
 
 ```java
 @MapperScan("com.csdn.dao")
