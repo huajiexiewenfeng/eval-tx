@@ -5,16 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EvalTransactionManagerMarkerConfiguration {
-    public EvalTransactionManagerMarkerConfiguration() {
-    }
 
     @Bean
-    public EvalTransactionManagerMarkerConfiguration.Marker evalTransactionManagerMarkerBean() {
-        return new EvalTransactionManagerMarkerConfiguration.Marker();
+    public Marker evalTransactionManagerMarkerBean() {
+        return new Marker();
     }
 
-   public class Marker {
-        Marker() {
-        }
+    class Marker {
     }
 }

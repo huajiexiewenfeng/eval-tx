@@ -15,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @MapperScan("com.csdn.dao")
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableEvalTransactionManager
 public class CompanyBootstrap {
     public static void main(String[] args) {
         SpringApplication.run(CompanyBootstrap.class, args);
