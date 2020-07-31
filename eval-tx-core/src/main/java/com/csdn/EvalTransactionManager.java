@@ -62,6 +62,8 @@ public class EvalTransactionManager {
     }
 
     /**
+     * 开启事务
+     *
      * @param globalId   全局事务id
      * @param id         子事务id
      * @param initialize 是否初始化
@@ -112,24 +114,48 @@ public class EvalTransactionManager {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * 使用线程池来执行 RPC 请求任务
+     *
+     * @param r
+     */
     public void executeChildTask(Runnable r) {
         // 增加子事务数
         redisUtil.incr(EVAL_TX_MANAGER_COUNT_PREFIX + globalTxId, 1);
         executorService.execute(r);
     }
 
+    /**
+     * 使用线程池来执行 RPC 请求任务(带返回值)
+     *
+     * @param c
+     */
     public Future submitChildTask(Callable c) {
         // 增加子事务数
         redisUtil.incr(EVAL_TX_MANAGER_COUNT_PREFIX + globalTxId, 1);
         return executorService.submit(c);
     }
 
+    /**
+     * 回滚事务
+     */
     public void rollback() {
         System.out.printf("事务回滚,事务id:[%s]\n", transactionKey);
         redisUtil.set(transactionKey, 0); // 设置 redis 中对应的事务 id 的值为 0 表示失败
         txManager.rollback(status);
     }
 
+    /**
+     * 提交事务
+     * 改造点：
+     * 1.超时策略选择
+     *  1.1 回退
+     *  1.2 超过 2/3 提交
+     *  1.3 其他补偿
+     *
+     * @return
+     * @throws InterruptedException
+     */
     public boolean commit() throws InterruptedException {
         int txCount = getTxCount(globalTxId);// 获取子事务数
         int max_count = 0;
@@ -185,6 +211,12 @@ public class EvalTransactionManager {
         return flag;
     }
 
+    /**
+     * 获取当前全局事务的子事务数
+     *
+     * @param globalTxId
+     * @return
+     */
     private int getTxCount(String globalTxId) {
         String key = EVAL_TX_MANAGER_COUNT_PREFIX + globalTxId;
         if (redisUtil.hasKey(key)) {
