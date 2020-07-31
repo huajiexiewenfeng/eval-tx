@@ -34,10 +34,19 @@
 
 ## 使用方式
 
-1.主调用应用启动类增加 `@EnableEvalTransactionManager` 注解
+1.主调用应用启动类增加 `@EnableEvalTransactionManager` 注解，激活分布式事务服务
 
 ```java
-
+@MapperScan("com.csdn.dao")
+@SpringBootApplication
+@EnableFeignClients
+@EnableDiscoveryClient
+@EnableEvalTransactionManager
+public class WebBootstrap {
+    public static void main(String[] args) {
+        SpringApplication.run(WebBootstrap.class, args);
+    }
+}
 ```
 
 2.依赖注入使用 `EvalTransactionManager` API
