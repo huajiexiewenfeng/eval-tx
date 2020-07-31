@@ -6,6 +6,10 @@
 
 附简单 Demo
 
+## 原理图
+
+![image-20200731094448889](https://github.com/huajiexiewenfeng/eval-tx/blob/master/images/image-20200731094448889.png)
+
 ## 介绍
 
 * 目前已经应用用生产环境
