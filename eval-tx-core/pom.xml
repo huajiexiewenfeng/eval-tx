@@ -30,6 +30,7 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>

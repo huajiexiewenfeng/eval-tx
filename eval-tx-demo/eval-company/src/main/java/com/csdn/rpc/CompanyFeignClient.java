@@ -60,4 +60,26 @@ public class CompanyFeignClient {
         throw new Exception("故意抛出异常");
     }
 
+
+    /**
+     * 超时演示
+     *
+     * @param globalTxId
+     * @param id
+     * @param name
+     * @return
+     */
+    @PostMapping(value = "/eval-company/api/addCompanyTxTimeout")
+    public String addCompanyTxTimeout(String globalTxId, String id, String name) {
+        evalTxManager.beginChildEvalTransactionManager(globalTxId);// 设置超时时间
+        try {
+            companyMapper.addCompany(id, name);
+            Thread.sleep(15000);
+            evalTxManager.commit();
+        } catch (Exception e) {
+            evalTxManager.rollback();
+            return "fail";
+        }
+        return "success";
+    }
 }

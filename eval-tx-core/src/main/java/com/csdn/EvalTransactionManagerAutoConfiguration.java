@@ -1,13 +1,11 @@
 package com.csdn;
 
-import com.csdn.EvalTransactionManager;
 import com.csdn.config.DataSourceConfig;
 import com.csdn.config.JedisConfig;
 import com.csdn.util.RedisUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.csdn.EvalTransactionManagerMarkerConfiguration;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
