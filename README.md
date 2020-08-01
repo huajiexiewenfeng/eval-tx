@@ -6,6 +6,13 @@
 
 附简单 Demo
 
+## 特点
+
+* 侵入性低
+* 自动装配
+* @Enable注解激活，开箱即用
+* 基于 Spring 事务进行二次封装，学习成本低
+
 ## 原理图
 
 ![image-20200731094448889](https://github.com/huajiexiewenfeng/eval-tx/blob/master/images/image-20200731094448889.png)
@@ -13,7 +20,6 @@
 ## 介绍
 
 * 目前已经应用用生产环境
-
 * 使用 redis 来作为子事务的注册中心，保存各个子事务的状态，事务之前互相感知
 * 所有事务要么一起提交，要么一起回滚
 * 下阶段改造点
@@ -38,7 +44,7 @@
 
 ## 使用方式
 
-1.主调用应用启动类增加 `@EnableEvalTransactionManager` 注解，激活分布式事务服务
+1.启动类增加 `@EnableEvalTransactionManager` 注解，激活分布式事务服务
 
 ```java
 @MapperScan("com.csdn.dao")
