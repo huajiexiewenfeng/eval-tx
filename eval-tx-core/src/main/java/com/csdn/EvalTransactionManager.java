@@ -266,8 +266,8 @@ public class EvalTransactionManager {
         if (flag) {
             txManager.commit(status);
         } else {
-            txManager.rollback(status);
             redisUtil.set(transactionKey, 0);
+            txManager.rollback(status);
         }
 
         return flag;

@@ -1,6 +1,8 @@
 package com.csdn.rpc;
 
 import com.csdn.EvalTransactionManager;
+import com.csdn.annotation.EvalTransactional;
+import com.csdn.constants.EvalTransactionalConstants;
 import com.csdn.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +31,7 @@ public class UserFeignClient {
      * 改造点：
      * 1.@EvalTransactional(type="child") 或者 @EvalChildTransactional 表示是处理子事务
      * 2.txManager 和 redisUtil 不需要作为参数进行传递，是否可以放在 AutoConfiguration 中
+     *
      * @param globalTxId
      * @param id
      * @param name
@@ -47,4 +50,10 @@ public class UserFeignClient {
         return "success";
     }
 
+    @PostMapping(value = "/eval-user/api/addUserTxAnnotation")
+    @EvalTransactional(type = EvalTransactionalConstants.TYPE_CHILD)
+    public String addUserTxAnnotation(String globalTxId, String id, String name) {
+        userMapper.addUser(id, name);
+        return "success";
+    }
 }

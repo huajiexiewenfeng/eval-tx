@@ -17,4 +17,7 @@ public interface UserFeignClient {
     @PostMapping("/eval-user/api/addUserTx")
     String addUserTx(@RequestParam("globalTxId") String globalTxId, @RequestParam("id") String id, @RequestParam("name") String name);
 
+    @PostMapping("/eval-user/api/addUserTxAnnotation")
+    String addUserTxAnnotation(@RequestParam("globalTxId") String globalTxId, @RequestParam("id") String id, @RequestParam("name") String name);
+
 }

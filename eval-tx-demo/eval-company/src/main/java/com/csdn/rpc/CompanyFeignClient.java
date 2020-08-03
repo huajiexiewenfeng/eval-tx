@@ -1,11 +1,10 @@
 package com.csdn.rpc;
 
 import com.csdn.EvalTransactionManager;
+import com.csdn.annotation.EvalTransactional;
+import com.csdn.constants.EvalTransactionalConstants;
 import com.csdn.dao.CompanyMapper;
-import com.csdn.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,6 +79,22 @@ public class CompanyFeignClient {
             evalTxManager.rollback();
             return "fail";
         }
+        return "success";
+    }
+
+    /**
+     * 超时演示-Annotation
+     *
+     * @param globalTxId
+     * @param id
+     * @param name
+     * @return
+     */
+    @PostMapping(value = "/eval-company/api/addCompanyTxTimeoutAnnotation")
+    @EvalTransactional(type = EvalTransactionalConstants.TYPE_CHILD)
+    public String addCompanyTxTimeoutAnnotation(String globalTxId, String id, String name) throws InterruptedException {
+        companyMapper.addCompany(id, name);
+        Thread.sleep(15000);
         return "success";
     }
 }

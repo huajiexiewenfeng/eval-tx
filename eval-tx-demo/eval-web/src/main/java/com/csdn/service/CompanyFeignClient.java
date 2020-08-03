@@ -22,4 +22,7 @@ public interface CompanyFeignClient {
 
     @PostMapping(value = "/eval-company/api/addCompanyTxTimeout")
     String addCompanyTxTimeout(@RequestParam("globalTxId") String globalTxId, @RequestParam("id") String id, @RequestParam("name") String name);
+
+    @PostMapping(value = "/eval-company/api/addCompanyTxTimeoutAnnotation")
+    String addCompanyTxTimeoutAnnotation(@RequestParam("globalTxId") String globalTxId, @RequestParam("id") String id, @RequestParam("name") String name);
 }
