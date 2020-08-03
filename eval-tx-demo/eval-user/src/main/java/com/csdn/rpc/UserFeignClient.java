@@ -56,4 +56,11 @@ public class UserFeignClient {
         userMapper.addUser(id, name);
         return "success";
     }
+
+    @PostMapping(value = "/eval-user/api/addUserTxAnnotationCustom")
+    @EvalTransactional(type = EvalTransactionalConstants.TYPE_CHILD,timeoutHandler = CustomedCommitPolicy.class)
+    public String addUserTxAnnotationCustom(String globalTxId, String id, String name) {
+        userMapper.addUser(id, name);
+        return "success";
+    }
 }

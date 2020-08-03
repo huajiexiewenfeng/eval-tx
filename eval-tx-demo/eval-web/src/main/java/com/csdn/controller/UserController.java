@@ -1,5 +1,6 @@
 package com.csdn.controller;
 
+import com.csdn.DefaultRollbackPolicy;
 import com.csdn.EvalTransactionManager;
 import com.csdn.MostCommitPolicy;
 import com.csdn.annotation.EvalTransactional;
@@ -160,7 +161,7 @@ public class UserController {
     }
 
     @GetMapping("addUserTxAnnotation")
-    @EvalTransactional(timeoutSeconds = 5)
+    @EvalTransactional(timeoutSeconds = 5,timeoutHandler = DefaultRollbackPolicy.class)
     public String addUserTxAnnotation(String globalTxId) {
 
         // RPC 调用用户服务增加用户
